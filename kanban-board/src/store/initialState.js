@@ -2,15 +2,15 @@ const initialState = [
   {
     className: 'backlog',
     title: 'Бэклог',
-    id: 0,
+    id: 'group-0',
     tasks: [
       {
-        id: 0,
+        id: 'card-0',
         title: 'Выучить EC6',
         status: 'backlog',
       },
       {
-        id: 1,
+        id: 'card-1',
         title: 'Выучить React',
         status: 'backlog',
       },
@@ -19,10 +19,10 @@ const initialState = [
   {
     className: 'processing',
     title: 'В процессе',
-    id: 1,
+    id: 'group-1',
     tasks: [
       {
-        id: 0,
+        id: 'card-2',
         title: 'Выучить CSS',
         status: 'processing',
       },
@@ -31,16 +31,16 @@ const initialState = [
   {
     className: 'done',
     title: 'Готово',
-    id: 2,
+    id: 'group-2',
     tasks: []
   },
   {
     className: 'basket',
     title: 'Корзина',
-    id: 3,
+    id: 'group-3',
     tasks: [
       {
-        id: 0,
+        id: 'card-3',
         title: 'Chill out',
         status: 'basket',
       },

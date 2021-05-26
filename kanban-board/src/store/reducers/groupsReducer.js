@@ -9,7 +9,7 @@ const groupsReducer = (state = initialState, action) => {
       const newTask = {
         title: action.payload,
         status: 'backlog',
-        id: cardId,
+        id: `card-${cardId}`,
       };
       cardId += 1;
       const newStateA = state.map((group) => {

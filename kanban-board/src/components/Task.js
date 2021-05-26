@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Draggable } from 'react-beautiful-dnd';
 import { updateTask } from '../store/actions';
 
-const Task = ({ groupId, task, dispatch}) => {
+const Task = ({ groupId, task, index, dispatch}) => {
   const [isEdit, setIsEdit] = useState(false);
   const [currTitle, setCurrTitle] = useState(task.title);
   const [editedTitle, setEditedTitle] = useState(task.title);
@@ -36,16 +37,18 @@ const Task = ({ groupId, task, dispatch}) => {
   }, [editedTitle, setEditedTitle, currTitle, task.id, task.status, groupId, dispatch])
 
   return (
-    <div
-      className={`taskboard__item task task--${task.status} ${isEdit ? 'task--active' : ''}`}
-      draggable={true}
-    >
-      <div className="task__body">
-        <p className="task__view">{currTitle}</p>
-        <input className="task__input" type="text" value={editedTitle} autoFocus onChange={(e) => setEditedTitle(e.target.value)} />
-      </div>
-      <button className="task__edit" type="button" aria-label="Изменить" onClick={handleChangeClick}></button>
-    </div>
+    <Draggable draggableId={String(task.id)} index={index}>
+      {(provided) => (
+        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
+          className={`taskboard__item task task--${task.status} ${isEdit ? 'task--active' : ''}`}>
+          <div className="task__body">
+            <p className="task__view">{currTitle}</p>
+            <input className="task__input" type="text" value={editedTitle} autoFocus onChange={(e) => setEditedTitle(e.target.value)} />
+          </div>
+          <button className="task__edit" type="button" aria-label="Изменить" onClick={handleChangeClick}></button>
+        </div>
+      )}
+    </Draggable>
   );
 }
 
