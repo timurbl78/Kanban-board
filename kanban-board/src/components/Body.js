@@ -1,5 +1,5 @@
-import AddTask from "./AddTask"
-import Taskboard from "./Taskboard"
+import AddTask from './AddTask';
+import Taskboard from './Taskboard';
 
 const Body = () => {
   return (
@@ -11,5 +11,5 @@ const Body = () => {
     </main>
   );
 }
- 
+
 export default Body;

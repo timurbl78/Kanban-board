@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { updateTask } from "../store/actions";
+import { updateTask } from '../store/actions';
 
 const Task = ({ groupId, task, dispatch}) => {
   const [isEdit, setIsEdit] = useState(false);
