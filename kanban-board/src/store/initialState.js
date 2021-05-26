@@ -27,18 +27,12 @@ const initialState = [
         status: 'processing',
       },
     ]
-  }, 
+  },
   {
     className: 'done',
     title: 'Готово',
     id: 2,
-    tasks: [
-      {
-        id: 0,
-        title: 'Выучить HTML',
-        status: 'done',
-      },
-    ]
+    tasks: []
   },
   {
     className: 'basket',

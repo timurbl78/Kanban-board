@@ -24,9 +24,8 @@ const groupsReducer = (state = initialState, action) => {
         }
         return group;
       });
-
       return newStateA;
-    
+
     case ACTIONS.UPDATE_TASK:
       const updatedTask = action.payload.task;
 
@@ -46,8 +45,19 @@ const groupsReducer = (state = initialState, action) => {
         }
         return group;
       });
-  
       return newStateU;
+
+    case ACTIONS.CLEAR_GROUP:
+      const newStateC = state.map((group) => {
+        if (group.id === action.payload) {
+          return {
+            ...group,
+            tasks: [],
+          }
+        }
+        return group;
+      });
+      return newStateC;
 
     default:
       return state;
