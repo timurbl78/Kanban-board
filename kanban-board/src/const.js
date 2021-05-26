@@ -2,21 +2,21 @@ export const groupName = [
   {
     className: 'backlog',
     title: 'Бэклог',
-    id: 'group1',
+    id: 'group0',
   },
   {
     className: 'processing',
     title: 'В процессе',
-    id: 'group2',
+    id: 'group1',
   },
   {
     className: 'done',
     title: 'Готово',
-    id: 'group3',
+    id: 'group2',
   },
   {
     className: 'basket',
     title: 'Корзина',
-    id: 'group4',
+    id: 'group3',
   },
 ];

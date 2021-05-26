@@ -1,28 +1,21 @@
-import { useState } from "react";
+import { useState } from 'react';
+import { connect } from 'react-redux';
+import { addTask } from '../store/actions/';
 
-const AddTask = () => {
+const AddTask = (props) => {
   const [newTask, setNewTask] = useState('');
   const [isPending, setIsPending] = useState(false);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    const task = {
-      title: newTask,
-      status: "backlog",
-    }
-
     setIsPending(true);
 
-    fetch('http://localhost:8000/tasks/', {
-      method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(task)
-    }).then(() => {
-      setIsPending(false);
-      setNewTask('');
-    })
-  }
+    const { dispatch } = props;
+    dispatch(addTask(newTask));
+    setNewTask('');
+    setIsPending(false);
+  };
 
   return (
     <section className="add-task">
@@ -61,5 +54,5 @@ const AddTask = () => {
     </section>
   );
 }
- 
-export default AddTask;
+
+export default connect()(AddTask);

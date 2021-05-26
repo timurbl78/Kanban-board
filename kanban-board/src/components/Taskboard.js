@@ -1,13 +1,29 @@
-import { groupName } from '../const';
+import { Component } from 'react';
+import { connect } from 'react-redux';
 import Group from './Group';
 
-const Taskboard = () => {
-  return (
-    <section className="taskboard">
-      <h2 className="visually-hidden">Ваши задачи:</h2>
-      {groupName.map((group) => <Group groupInfo={group} key={group.id}/>)}
-    </section>
-  );
+
+class Taskboard extends Component {
+  render() {
+    const { groups } = this.props;
+    return (
+        <section className="taskboard">
+          <h2 className="visually-hidden">Ваши задачи:</h2>
+          {
+            groups.map((group) => (<Group 
+              title={group.title}
+              className={group.className}
+              tasks={group.tasks} 
+              groupId={group.id}
+              key={group.id} />))
+          }
+        </section>
+    )
+  }
 }
 
-export default Taskboard;
+const mapStateToProps = state => ({
+  groups: state.groups
+})
+ 
+export default connect(mapStateToProps)(Taskboard);
