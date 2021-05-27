@@ -1,13 +1,26 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
+import { sort } from '../store/actions';
 import Group from './Group';
 
 
 class Taskboard extends Component {
 
-  onDragEnd = () => {
-    // TODO: reordering
+  onDragEnd = (result) => {
+    const { destination, source } = result;
+
+    if (!destination) {
+      return;
+    }
+
+    this.props.dispatch(sort(
+      source.droppableId,
+      destination.droppableId,
+      source.index,
+      destination.index,
+    ))
+
   }
 
   render() {

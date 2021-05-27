@@ -5,31 +5,32 @@ let cardId = 10;
 
 const groupsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ACTIONS.ADD_TASK:
+    case ACTIONS.ADD_TASK: {
       const newTask = {
         title: action.payload,
         status: 'backlog',
         id: `card-${cardId}`,
       };
       cardId += 1;
-      const newStateA = state.map((group) => {
+      const newState = state.map((group) => {
         if (group.className === 'backlog') {
           return {
             ...group,
             tasks: [
-              newTask,
               ...group.tasks,
+              newTask,
             ]
           }
         }
         return group;
       });
-      return newStateA;
+      return newState;
+    }
 
-    case ACTIONS.UPDATE_TASK:
+    case ACTIONS.UPDATE_TASK: {
       const updatedTask = action.payload.task;
 
-      const newStateU = state.map((group) => {
+      const newState = state.map((group) => {
         if (group.id === action.payload.groupId) {
           const newTasks = group.tasks.map((task) => {
             if (task.id === action.payload.task.id) {
@@ -45,10 +46,11 @@ const groupsReducer = (state = initialState, action) => {
         }
         return group;
       });
-      return newStateU;
+      return newState;
+    }
 
-    case ACTIONS.CLEAR_GROUP:
-      const newStateC = state.map((group) => {
+    case ACTIONS.CLEAR_GROUP: {
+      const newState = state.map((group) => {
         if (group.id === action.payload) {
           return {
             ...group,
@@ -57,7 +59,35 @@ const groupsReducer = (state = initialState, action) => {
         }
         return group;
       });
-      return newStateC;
+      return newState;
+    }
+
+    case ACTIONS.DRAG_HAPPEND: {
+      const {
+        droppableIdStart,
+        droppableIdEnd,
+        droppableIndexStart,
+        droppableIndexEnd,
+      } = action.payload;
+      const newState = [...state];
+
+      if (droppableIdStart === droppableIdEnd) {
+        const group = state.find(group => droppableIdStart === group.id);
+        const task = group.tasks.splice(droppableIndexStart, 1);
+        group.tasks.splice(droppableIndexEnd, 0, ...task);
+      }
+
+      if (droppableIdStart !== droppableIdEnd) {
+        const groupStart = state.find(group => droppableIdStart === group.id);
+        const task = groupStart.tasks.splice(droppableIndexStart, 1);
+
+        const groupEnd = state.find(group => droppableIdEnd === group.id);
+        task[0].status = groupEnd.className;
+        groupEnd.tasks.splice(droppableIndexEnd, 0, ...task);
+      }
+
+      return newState;
+    }
 
     default:
       return state;

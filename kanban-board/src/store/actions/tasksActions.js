@@ -21,5 +21,5 @@ export const clearGroup = (groupId) => {
   return {
     type: ACTIONS.CLEAR_GROUP,
     payload: groupId,
-  }
-}
+  };
+};
